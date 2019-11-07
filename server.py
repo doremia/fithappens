@@ -8,11 +8,8 @@ import model
 
 app = Flask(__name__)
 
-# Required to use Flask sessions and the debug toolbar
 app.secret_key = "MuahMuahMuah"
 
-# Normally, if you use an undefined variable in Jinja2, it fails silently.
-# This is horrible. Fix this so that, instead, it raises an error.
 app.jinja_env.undefined = StrictUndefined
 
 
@@ -39,7 +36,6 @@ def login_form():
 def login_process():
     """Process login."""
 
-    # Get form variables
     email = request.form["email"]
     password = request.form["password"]
 
