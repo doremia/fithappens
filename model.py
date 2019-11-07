@@ -105,8 +105,7 @@ class Schedule(db.Model):
     scheduled_id = db.Column(db.Integer, primary_key = True, autoincrement = True)
     trainer_id = db.Column(db.Integer, db.ForeignKey('trainers.trainer_id'), nullable = False)
     trainee_id = db.Column(db.Integer, db.ForeignKey('trainees.trainee_id'), nullable = False)
-    session_id = db.Column(db.Integer, db.ForeignKey('sessions.session_id'), nullable = False)
-    
+
     trainer = db.relationship("Trainer", backref="schedules")
     trainee = db.relationship("Trainee", backref="schedules")
 
