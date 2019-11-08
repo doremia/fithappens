@@ -3,6 +3,12 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy() #Instantiate a SQLAlchemy object. 
 
+class User(db.Model):
+    __tablename__ = "users"
+
+    user_id = db.Column(db.String(25), primary_key = True, nullable = False)
+    user_name = db.Column(db.String(25), nullable = False)
+    password_hash = db.Column(db.LargeBinary, nullable=False) #storing passwords as byte string
 
 class Exercise(db.Model):
     """Data model for an exercise"""
@@ -53,10 +59,13 @@ class Trainer(db.Model):
     __tablename__ = "trainers"
 
     trainer_id = db.Column(db.Integer, primary_key = True, autoincrement = True)
+    user_id = db.Column(db.String(25), db.ForeignKey('users.user_id'))
     fname = db.Column(db.String(25), nullable = False)
     lname = db.Column(db.String(25), nullable = False)
     email = db.Column(db.String(64))
     img_url = db.Column(db.String(150))
+
+    user = db.relationship("User", backref="trainer")
 
 class Trainee(db.Model):
     """Data model for a trainee"""
@@ -65,12 +74,14 @@ class Trainee(db.Model):
 
     trainee_id = db.Column(db.Integer, primary_key = True, autoincrement = True)
     trainer_id = db.Column(db.Integer, db.ForeignKey('trainers.trainer_id'))
+    user_id = db.Column(db.String(25), db.ForeignKey('users.user_id'))
     fname = db.Column(db.String(25), nullable = False)
     lname = db.Column(db.String(25), nullable = False)
     email = db.Column(db.String(64))
     membership_plan = db.Column(db.Integer) #month as unit
 
     trainer = db.relationship("Trainer", backref="trainees")
+    user = db.relationship("User", backref="trainee")
 
 class HealthLog(db.Model):
     """Data model for a health log"""
