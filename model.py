@@ -4,11 +4,18 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy() #Instantiate a SQLAlchemy object. 
 
 class User(db.Model):
+    """Data model for user"""
+
     __tablename__ = "users"
 
     user_id = db.Column(db.String(25), primary_key = True, nullable = False)
-    user_name = db.Column(db.String(25), nullable = False)
-    password_hash = db.Column(db.LargeBinary, nullable=False) #storing passwords as byte string
+    fname = db.Column(db.String(25), nullable = False)
+    lname = db.Column(db.String(25), nullable = False)
+    email = db.Column(db.String(64))
+    trainer_img_url = db.Column(db.String(150))
+    trainee_membership= db.Column(db.Integer) #month as unit
+    user_type = db.Column(db.String(25))
+    password_hash = db.Column(db.String(30), nullable=False) #storing passwords as byte string
 
 class Exercise(db.Model):
     """Data model for an exercise"""
@@ -32,11 +39,9 @@ class Menu(db.Model):
     menu_id =  db.Column(db.Integer, primary_key = True, autoincrement = True)
     name = db.Column(db.String(25), nullable = False) # (Cardio, Compound, Strength, Endurance)
     creator = db.Column(db.String(25)) #(default, )
-    trainer_id = db.Column(db.Integer, db.ForeignKey('trainers.trainer_id'), nullable = False)
-    trainee_id = db.Column(db.Integer, db.ForeignKey('trainees.trainee_id'), nullable = False)
-
-    trainer = db.relationship("Trainer", backref="menus")
-    trainee = db.relationship("Trainee", backref="menus")
+    user_id = db.Column(db.String(25), db.ForeignKey('users.user_id'), nullable = False)
+    
+    user = db.relationship("User", backref="menus")
 
 class ExerciseMenu(db.Model):
     """Association data table for menu and exercise"""
@@ -53,35 +58,6 @@ class ExerciseMenu(db.Model):
     exercise = db.relationship("Exercise", backref="exercise_menus")
     menu = db.relationship("Menu", backref="exercise_menus")
 
-class Trainer(db.Model):
-    """Data model for a trainer"""
-
-    __tablename__ = "trainers"
-
-    trainer_id = db.Column(db.Integer, primary_key = True, autoincrement = True)
-    user_id = db.Column(db.String(25), db.ForeignKey('users.user_id'))
-    fname = db.Column(db.String(25), nullable = False)
-    lname = db.Column(db.String(25), nullable = False)
-    email = db.Column(db.String(64))
-    img_url = db.Column(db.String(150))
-
-    user = db.relationship("User", backref="trainer")
-
-class Trainee(db.Model):
-    """Data model for a trainee"""
-
-    __tablename__ = "trainees"
-
-    trainee_id = db.Column(db.Integer, primary_key = True, autoincrement = True)
-    trainer_id = db.Column(db.Integer, db.ForeignKey('trainers.trainer_id'))
-    user_id = db.Column(db.String(25), db.ForeignKey('users.user_id'))
-    fname = db.Column(db.String(25), nullable = False)
-    lname = db.Column(db.String(25), nullable = False)
-    email = db.Column(db.String(64))
-    membership_plan = db.Column(db.Integer) #month as unit
-
-    trainer = db.relationship("Trainer", backref="trainees")
-    user = db.relationship("User", backref="trainee")
 
 class HealthLog(db.Model):
     """Data model for a health log"""
@@ -89,13 +65,13 @@ class HealthLog(db.Model):
     __tablename__ = "healthlogs"
 
     health_id = db.Column(db.Integer, primary_key = True, autoincrement = True)
-    trainee_id = db.Column(db.Integer, db.ForeignKey('trainees.trainee_id'))
+    user_id = db.Column(db.String(25), db.ForeignKey('users.user_id'))
     height = db.Column(db.Integer)  
     body_weight = db.Column(db.Integer)
     fat_percentage = db.Column(db.Integer)
     log_date = db.Column(db.DateTime)
 
-    trainee = db.relationship("Trainee", backref="healthlogs")
+    user = db.relationship("User", backref="healthlogs")
 
 class Session(db.Model):
     """"Data model for one training session"""
@@ -114,18 +90,17 @@ class Schedule(db.Model):
     __tablename__ = "schedules"
 
     scheduled_id = db.Column(db.Integer, primary_key = True, autoincrement = True)
-    trainer_id = db.Column(db.Integer, db.ForeignKey('trainers.trainer_id'), nullable = False)
-    trainee_id = db.Column(db.Integer, db.ForeignKey('trainees.trainee_id'), nullable = False)
-
-    trainer = db.relationship("Trainer", backref="schedules")
-    trainee = db.relationship("Trainee", backref="schedules")
+    user_id = db.Column(db.String(25), db.ForeignKey('users.user_id'), nullable = False)
+   
+    user = db.relationship("User", backref="schedules")
+   
 
 def connect_to_db(app):
     """Connect the database to the Flask app."""
 
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///fithappens'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['SQLALCHEMY_ECHO'] = False
+  
     db.app = app
     db.init_app(app)
 

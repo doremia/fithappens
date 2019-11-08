@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 <% block title %>~~~HELLO~~~<% endblock %>
-
+{% block content %}
 <form action="/register" method="POST">
     <label for="usertype">Become a Trainer or a Trainee?</label>
     Trainer <input type="radio" name="usertype" value="trainer"> 
@@ -8,3 +8,4 @@
 
     <input type="submit" value="Let's go get you an account!">
 </form>
+{% endblock %}

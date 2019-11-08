@@ -1,4 +1,4 @@
-from model import db, Trainer, Trainee, connect_to_db, HealthLog
+
 from flask import Flask
 from faker import Faker
 import random
@@ -53,7 +53,7 @@ for trainee in trainees:
     start_date = fake.date_this_year()
     for i in range(10):
         log_date = start_date + timedelta(days=i*7)
-        healthlogs.append(HealthL og( height = random.randint(100,180),body_weight = random.randint(40,80),fat_percentage=random.randint(5,30),log_date= log_date, trainee = trainee))
+        healthlogs.append(HealthLog( height = random.randint(100,180),body_weight = random.randint(40,80),fat_percentage=random.randint(5,30),log_date= log_date, trainee = trainee))
 
 
 

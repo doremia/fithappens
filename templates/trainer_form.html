@@ -1,20 +1,22 @@
 {% extends 'base.html' %}
 <% block title %>Create a Trainer Account<% endblock %>
-
+{% block content %}
 <form action="/register_trainer" method="POST">
 
     <label for="user_id">Account ID :</label>
-    <input type="text" name="user_id" id="user_id">
+    <input type="text" name="user_id" id="user_id"><br>
     <label for="password">Password :</label>
-    <input type="text" name=password id="password">
+    <input type="text" name=password id="password"><br>
     <label for="fname">First Name : </label>
-    <input type="text" name="fname" id="fname"> 
+    <input type="text" name="fname" id="fname"><br> 
     <label for="lname">Last Name : </label>
-    <input type="text" name="lname" id="lname">
+    <input type="text" name="lname" id="lname"><br>
     <label for="email">Email : </label>
-    <input type= "text" name="email" id="email">
+    <input type= "text" name="email" id="email"><br>
     <label for="img_url">Upload your photo : </label>
-    <input type="file" name="img_url" id="img_url" accept="image/png, image/jpeg">
-
-    <input type="submit" value="Create my account!">
+    <input type="file" name="img_url" id="img_url" accept="image/png, image/jpeg"><br>
+    <br>
+    <br>
+    <input type="submit" value="Hiyah! Create my account!">
 </form>
+{% endblock %}
