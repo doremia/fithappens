@@ -68,12 +68,12 @@ def register_trainer_process():
     email = request.form["email"]
     img_url = request.form["img_url"]
 
-    user = User(user_id="user_id", 
-                fname="fname", 
-                lname="lname", 
-                password_hash="password",
-                email="email",
-                trainer_img_url="img_url",
+    user = User(user_id=user_id, 
+                fname=fname, 
+                lname=lname, 
+                password_hash=password,
+                email=email,
+                trainer_img_url=img_url,
                 user_type="trainer")
 
     db.session.add(user)
@@ -98,14 +98,14 @@ def register_trainee_process():
     lname = request.form["lname"]
     email = request.form["email"]
     trainer_membership = request.form["membership_plan"]
-    trainer_id = request.form[""] 
+    trainer_id = request.form["trainer_id"] 
 
-    user = User(user_id="user_id", 
-                fname="fname", 
-                lname="lname", 
-                password_hash="password",
-                email="email",
-                img_url="img_url",
+    user = User(user_id=user_id, 
+                fname=fname, 
+                lname=lname,
+                password_hash=password,
+                email=email,
+                trainee_trainer_id=trainer_id,
                 user_type="trainee")
 
     db.session.add(user)
