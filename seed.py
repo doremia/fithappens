@@ -81,7 +81,7 @@ for trainee in trainees:
                                     user_id = trainee.user_id)
                                     )
 
-##########------------ADDING EXERCISES-----------------------------#########
+##########------------ADDING EXERCISES----------------#########
 
 exercises=[
             "Squat",
@@ -100,12 +100,18 @@ exercises=[
 
 exercises_object=[]
 for exercise in exercises:
-    exercises.append( Exercise(exercise=exercise) )
+    exercises_object.append( Exercise(exercise=exercise) )
+
+################--------ADDING MENUS--------------##############
+
+
 
 
 db.session.add_all(trainers)
 db.session.add_all(trainees)
 db.session.add_all(healthlogs)
-db.session.add_all(exercises)
+db.session.add_all(exercises_object)
 
 db.session.commit()
+
+print("ADDED NEW DATA FOR TESTING!!")

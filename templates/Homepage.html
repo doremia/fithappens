@@ -2,7 +2,13 @@
  {% block content %}
 
 <form action="/" method="POST">
-<button type="submit">Sign In</button>
+    <button type="submit" name="useraction" value="signin">Sign Up</button>
 </form>
+<br>
+<form action="/" method="POST">
+    <button type="submit" name="useraction" value="login">Log In</button>
+</form>
+
+
 
 {% endblock %}

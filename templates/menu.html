@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="exercise">
+    <label><h2 class='exercise'>Exercises</h2></label>
+
+        <form action="/menu" id="exercises">    
+            {% for exercise in exercises %}
+                <div><input type='checkbox' name="exercise" value="{{ exercise.exercise_id }}" id="{{ exercise.exercise_id }}">{{ exercise.exercise }}</div>
+            {% endfor %}      
+        </form>    
+</section>
+
+<section class="new_menu" >
+    <!-- only one form to send the final post request. -->
+
+    <form action="/menu" >
+        Name for the menu?
+        <input type="text" name="input_menu_name" id="input_menu_name">
+        <button id="create_menu_name">Create my new menu name</button>
+        <div>
+            <h2 id="show_menu_name"> </h2>
+            <h2 id="fixed_menu_name"> MENU</h2>
+        </div> <!-- fix it with style display inline -->
+
+        <table >
+            <tr>
+                <th>Exercise</th>
+                    <!-- <tr> show selected exercise here</tr> -->
+                <th>Repetition</th>
+                <th>Set</th>
+                <th>Note</th>
+            </tr>
+        </table>
+    </form>
+</section>
+
+<script>  
+    // Save checked exercises as a list for sending back to DB.
+    // $('input:checked').on('click', ()=>{
+    //     let selectedExercises = 
+
+    // });
+
+
+    // Selected exercise can show on the menu table row
+
+    $('input[name=exercise]').on("change", (evt)=>{
+        // let selectedExercise = $('#exercise.id')
+        const test= $(evt.target);
+        console.log(test.attr('value'));
+        // console.log(evt);
+        // console.log(event.target);
+        // console.log(event.target.nextSibling);
+
+    });
+
+    // Take the value of #input_menu_name and show on #menu_table_name
+    $('#create_menu_name').on("click", (evt)=> {
+        evt.preventDefault();
+        let newMenuName = $('#input_menu_name').val();
+        $('#show_menu_name').text(newMenuName);
+
+        // elem.inner(`<tr>${variable}</tr>`) //how to push the new name
+    });
+
+</script>
+    
+
+
+
+
+{% endblock %}
