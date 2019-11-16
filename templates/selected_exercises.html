@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="new_menu" >
+
+    <h2> {{ new_menu.name }} </h2> 
+
+    <form action="/menu/{{ new_menu.menu_id }}" method="POST">
+
+        {% for exercise in selected_exercises %}
+                <div>
+                    <h3 id="{{ exercise.exercise_id }}"> {{ exercise.exercise }} </h3>
+                </div>
+                <div>
+                    <input type='hidden' name='exercise' value='{{ exercise.exercise_id }}'>
+
+                    <input type='text' name="{{ exercise.exercise_id }}_weight">Weight(lb)
+             
+                    <input type='text' name="{{ exercise.exercise_id }}_reps">Reps
+                
+                    <input type='text' name="{{ exercise.exercise_id }}_set">Set
+               
+                    <input type='text' name="{{ exercise.exercise_id }}_note">Note
+                </div>
+
+            {% endfor %} 
+        <input type="submit" value="creat menu">
+    </form>
+{% endblock %}

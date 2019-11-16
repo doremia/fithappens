@@ -1,10 +1,7 @@
 from jinja2 import StrictUndefined
-
-from flask import Flask, render_template, request, flash, redirect,session
+from flask import Flask, render_template, request, flash, redirect, session
 from flask_debugtoolbar import DebugToolbarExtension
-
-
-from model import db, connect_to_db, User, Exercise, Menu
+from model import db, connect_to_db, User, Exercise, Menu, ExerciseMenu
 
 
 app = Flask(__name__)
@@ -19,27 +16,57 @@ def show_exercise():
     """Show the list of exercises on menu.html"""
 
     exercises = Exercise.query.all() 
+
     
     return render_template("menu.html", exercises=exercises)
 
 
-# @app.route('/menu', methods=['POST'])
-# def create_a_menu():
-#     """Add menu to the Menu database"""
+@app.route('/menu', methods=['POST'])
+def create_a_menu():
+    """Add menu to the Menu database"""
 
-#     # menu_id =  db.Column(db.Integer, primary_key = True, autoincrement = True)
-#     # name = db.Column(db.String(25), nullable = False) # (Cardio, Compound, Strength, Endurance)
-#     # creator = db.Column(db.String(25)) #(default, )
-#     # user_id = db.Column(db.String(25), db.ForeignKey('users.user_id'), nullable = False)
+    # class ExerciseMenu(db.Model):
+    # """Association data table for menu and exercise"""
+
+    # __tablename__ = "exercise_menus"
+
+    # ex_me_id = db.Column(db.Integer, primary_key = True, autoincrement = True)
+    # ex_id =  db.Column(db.Integer, db.ForeignKey('exercises.exercise_id'), nullable = False) 
+    # menu_id =  db.Column(db.Integer, db.ForeignKey('menus.menu_id'), nullable = False) 
+    # weight = db.Column(db.Integer, nullable = False)
+    # reps = db.Column(db.Integer, nullable = False)
+    # total_set = db.Column(db.Integer, nullable = False)
+
+    # exercise = db.relationship("Exercise", backref="exercise_menus")
+    # menu = db.relationship("Menu", backref="exercise_menus")
+
+
+    # menu_id =  db.Column(db.Integer, primary_key = True, autoincrement = True)
+    # name = db.Column(db.String(25), nullable = False) # 
+    # creator = db.Column(db.String(25)) #(default, ) #(users can create their own categories)
+    # user_id = db.Column(db.String(25), db.ForeignKey('users.user_id'), nullable = False)
     
-#     new_menu=Menu()
+    # name=request.form["input_menu_name"]
+    # exercises = request.form.getlist('exercise')
+    # creator= request.form["menu_type"]
+    # user_id = session['user_id']
+    # user_id=request.form["user_id"] # ?? if I can get it from session?
+    # weight=request.form[" "]
+    # reps=request.form[" "]
+    # total_set=request.form[" "]
 
-#     db.session.add(new_menu)
-#     db.session.commit()
+    # new_menu=Menu(name=name, creator=menu_type, user_id=user_id)
 
-#     flash("Hooray! one workout menu added!")
+    # new_exercsie_menu=ExerciseMenu(ex_id= , menu_id= , weight= ,
+    #     reps= , total_set= )
 
-#     return render_template("menu.html", exercises=exercises_names)
+
+    # db.session.add(new_menu)
+    # db.session.commit()
+
+    # flash("Hooray! One workout menu added!")
+
+    # return render_template("menu.html")
 
 
 

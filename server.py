@@ -119,7 +119,6 @@ def register_trainee_process():
     db.session.add(user)
     db.session.commit()
 
-
     return redirect("/")
 
 @app.route('/login', methods=['GET'])
@@ -146,10 +145,15 @@ def login_process():
         flash("Hey! you fed me a wrong password")
         return redirect("/login")
 
+    if session['user_id']:
+        flash("Already logged in")
+        return redirect('/')
+
     session["user_id"] = user.user_id
 
     flash("Logged in")
     return redirect("/")
+
 
 
 @app.route('/logout')
@@ -158,6 +162,7 @@ def logout():
 
     del session["user_id"]
     flash("Logged Out.")
+
     return redirect("/")
 
 @app.route('/user/{user.user_id}')

@@ -11,50 +11,95 @@
             {% endfor %}      
         </form>    
 </section>
+<br>
 
+<!-- ?? make this section in the right block section, with style -->
 <section class="new_menu" >
     <!-- only one form to send the final post request. -->
-
-    <form action="/menu" >
+    <form action="/menu" method="POST">
         Name for the menu?
         <input type="text" name="input_menu_name" id="input_menu_name">
         <button id="create_menu_name">Create my new menu name</button>
-        <div>
-            <h2 id="show_menu_name"> </h2>
-            <h2 id="fixed_menu_name"> MENU</h2>
-        </div> <!-- fix it with style display inline -->
 
-        <table >
-            <tr>
-                <th>Exercise</th>
-                    <!-- <tr> show selected exercise here</tr> -->
-                <th>Repetition</th>
-                <th>Set</th>
-                <th>Note</th>
-            </tr>
+        <h2 id="show_menu_name"> <!-- name of the menu table --> </h2> 
+
+        <table id="menu_table">
+            <thead>
+                <tr>
+                    <th>Exercise</th>
+                    <th>Weight</th>
+                    <th>Repetition</th>
+                    <th>Set</th>
+                    <th>Note</th>
+                </tr>
+            </thead>
+            <!-- ?? take input value and put it in the table -->
+            <!-- ?? save input value in a variable -->
+            <tbody id="menu_table_body">
+                <tr>
+                    <td>Squat</td>
+                    <td>110  </td>
+                    <td>10   </td>
+                    <td>3    </td>
+                    <td>PR   </td>
+                </tr>
+                <tr>
+                    <td>Squat</td>
+                    <td>115  </td>
+                    <td>10   </td>
+                    <td>3    </td>
+                    <td>PR   </td>
+                </tr>
+                <tr>
+                    <td> <input type="text"> </td>
+                    <td> <input type="text"> </td>
+                    <td> <input type="text"> </td>
+                    <td> <input type="text"> </td>
+                <!-- ?? set an ID for each input? but what if adding new row -->
+                </tr>
+            </tbody>
         </table>
+        <input type="submit" value="Create New Menu">
     </form>
 </section>
 
 <script>  
-    // Save checked exercises as a list for sending back to DB.
+    // ?? Save checked exercises as a list for sending back to DB.
     // $('input:checked').on('click', ()=>{
     //     let selectedExercises = 
 
     // });
 
-
     // Selected exercise can show on the menu table row
+    let selectedExercises = {};
+    let dataHtml='';
+    $('input[name=exercise]').on("change", (evt)=> {
+        
+        const exercise= $(evt.target);
+        const exercise_id= exercise.attr('value');
+         //?? how to keep track of all changed checkboxes and save it in a list of exercise_id 
+        
+        
+        if (selectedExercises[exercise_id]) {
+            selectedExercises[exercise_id]= false;
+        }
 
-    $('input[name=exercise]').on("change", (evt)=>{
-        // let selectedExercise = $('#exercise.id')
-        const test= $(evt.target);
-        console.log(test.attr('value'));
+        else {
+            selectedExercises[exercise_id]= true;
+            // create a table row once exercise is selected. 
+            const tableBody = $('#menu_table_body');
+            dataHtml = dataHtml +`<tr><td>${exercise_id}</td><td></td><td></td><td></td><td></td></tr>`;  
+            tableBody.html(dataHtml);     
+        }
+        // console.log(exercise);
         // console.log(evt);
-        // console.log(event.target);
-        // console.log(event.target.nextSibling);
+        // selectedExercises.push(exercise_id);
+        console.log(selectedExercises);
+        // can I send a list back to server via javascript (formate in a dict)
 
     });
+
+    
 
     // Take the value of #input_menu_name and show on #menu_table_name
     $('#create_menu_name').on("click", (evt)=> {

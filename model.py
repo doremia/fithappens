@@ -19,6 +19,7 @@ class User(db.Model):
     trainee_trainer_id = db.Column(db.String(25), db.ForeignKey('users.user_id'))
     password_hash = db.Column(db.String(30), nullable=False) #storing passwords as byte string
 
+
 class Exercise(db.Model):
     """Data model for an exercise"""
 

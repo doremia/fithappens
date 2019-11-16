@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<section class="new_menu" >
+
+    <form action="/exercises" method="POST">
+    <div>
+            Name for the menu?
+            <input type="text" name="input_menu_name" id="input_menu_name">
+            Menu Type:
+            <input type="text" name="menu_type">
+    </div>
+
+        {% for exercise in exercises %}
+                <div>
+                    <input type='checkbox' name="exercise" value="{{ exercise.exercise_id }}" id="{{ exercise.exercise_id }}">{{ exercise.exercise }}
+                </div>
+
+            {% endfor %} 
+
+        
+    <input type="submit" value="Create New Menu">
+
+    </form>
+</section>
+
+{% endblock %}
