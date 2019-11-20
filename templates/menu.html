@@ -7,7 +7,7 @@
 
         <form action="/menu" id="exercises">    
             {% for exercise in exercises %}
-                <div><input type='checkbox' name="exercise" value="{{ exercise.exercise_id }}" id="{{ exercise.exercise_id }}">{{ exercise.exercise }}</div>
+                <div><input type='checkbox' name="exercise" value="{{ exercise.exercise }}" id="{{ exercise.exercise_id }}">{{ exercise.exercise }}</div>
             {% endfor %}      
         </form>    
 </section>
@@ -16,7 +16,7 @@
 <!-- ?? make this section in the right block section, with style -->
 <section class="new_menu" >
     <!-- only one form to send the final post request. -->
-    <form action="/menu" method="POST">
+    <form action="/menu" id="menu_form" method="POST">
         Name for the menu?
         <input type="text" name="input_menu_name" id="input_menu_name">
         <button id="create_menu_name">Create my new menu name</button>
@@ -26,7 +26,8 @@
         <table id="menu_table">
             <thead>
                 <tr>
-                    <th>Exercise</th>
+                    <th>Exercise ID</th>
+                    <th>Exercise Name</th>
                     <th>Weight</th>
                     <th>Repetition</th>
                     <th>Set</th>
@@ -41,44 +42,25 @@
                     <td>110  </td>
                     <td>10   </td>
                     <td>3    </td>
-                    <td>PR   </td>
-                </tr>
-                <tr>
-                    <td>Squat</td>
-                    <td>115  </td>
-                    <td>10   </td>
-                    <td>3    </td>
-                    <td>PR   </td>
-                </tr>
-                <tr>
-                    <td> <input type="text"> </td>
-                    <td> <input type="text"> </td>
-                    <td> <input type="text"> </td>
-                    <td> <input type="text"> </td>
-                <!-- ?? set an ID for each input? but what if adding new row -->
+                    <td>PR   </td> <!-- gray this one out as showing this as an example -->
                 </tr>
             </tbody>
+
         </table>
-        <input type="submit" value="Create New Menu">
+        <input type="submit" id="menu_form_submission" value="Create New Menu">
     </form>
 </section>
 
 <script>  
-    // ?? Save checked exercises as a list for sending back to DB.
-    // $('input:checked').on('click', ()=>{
-    //     let selectedExercises = 
-
-    // });
-
-    // Selected exercise can show on the menu table row
+    // Selected exercise can dynamically show on the menu table row.
     let selectedExercises = {};
     let dataHtml='';
     $('input[name=exercise]').on("change", (evt)=> {
         
         const exercise= $(evt.target);
-        const exercise_id= exercise.attr('value');
+        const exercise_id= exercise.attr('id');
+        const exercise_name= exercise.attr('value')
          //?? how to keep track of all changed checkboxes and save it in a list of exercise_id 
-        
         
         if (selectedExercises[exercise_id]) {
             selectedExercises[exercise_id]= false;
@@ -86,28 +68,45 @@
 
         else {
             selectedExercises[exercise_id]= true;
+
             // create a table row once exercise is selected. 
-            const tableBody = $('#menu_table_body');
-            dataHtml = dataHtml +`<tr><td>${exercise_id}</td><td></td><td></td><td></td><td></td></tr>`;  
-            tableBody.html(dataHtml);     
+             const tableBody = $('#menu_table_body');
+            dataHtml = dataHtml +`
+            <tr>
+            <td>${exercise_id}</td>
+            <td>${exercise_name}</td>
+            <td><input type="text" name="${exercise_id}_weight"></td>
+            <td><input type="text" name="${exercise_id}_reps"></td>
+            <td><input type="text" name="${exercise_id}_set"></td>
+            <td><input type="text" name="${exercise_id}_set"></td>
+            </tr>`;  
+            tableBody.html(dataHtml);    
         }
-        // console.log(exercise);
-        // console.log(evt);
-        // selectedExercises.push(exercise_id);
         console.log(selectedExercises);
         // can I send a list back to server via javascript (formate in a dict)
-
     });
 
     
-
     // Take the value of #input_menu_name and show on #menu_table_name
     $('#create_menu_name').on("click", (evt)=> {
         evt.preventDefault();
         let newMenuName = $('#input_menu_name').val();
         $('#show_menu_name').text(newMenuName);
+    });
 
-        // elem.inner(`<tr>${variable}</tr>`) //how to push the new name
+    confirmed_exercises_id=[];
+    $('#menu_form').on("submit", (evt) => {
+        evt.preventDefault();
+
+        for (let[key,value] of Object.entries(selectedExercises))
+            { 
+                if (value === true)
+                    { confirmed_exercises_id.push(key); }
+            }
+        console.log(confirmed_exercises_id);  
+        for (exercise_id of confirmed_exercises_id) {
+            
+        } 
     });
 
 </script>

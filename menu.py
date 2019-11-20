@@ -50,10 +50,10 @@ def create_a_menu():
     # exercises = request.form.getlist('exercise')
     # creator= request.form["menu_type"]
     # user_id = session['user_id']
-    # user_id=request.form["user_id"] # ?? if I can get it from session?
-    # weight=request.form[" "]
-    # reps=request.form[" "]
-    # total_set=request.form[" "]
+    # user_id="Tina"
+    # weight=
+    # reps=
+    # total_set=
 
     # new_menu=Menu(name=name, creator=menu_type, user_id=user_id)
 
@@ -64,9 +64,9 @@ def create_a_menu():
     # db.session.add(new_menu)
     # db.session.commit()
 
-    # flash("Hooray! One workout menu added!")
+    flash("Hooray! One workout menu added!")
 
-    # return render_template("menu.html")
+    return render_template("show_menu.html")
 
 
 

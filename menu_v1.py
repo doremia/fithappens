@@ -62,7 +62,7 @@ def show_selected_exercises(new_menu_id):
 
     return render_template("selected_exercises.html",new_menu_id=menu_id)
 
-@app.route('/menu/<int:new_menu_id>/', methods=['POST'])
+@app.route('/menu/<int:new_menu_id>', methods=['POST'])
 def build_menu(new_menu_id):
 
 
