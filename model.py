@@ -15,7 +15,7 @@ class User(db.Model):
     email = db.Column(db.String(64))
     trainer_img_url = db.Column(db.String(150))
     trainee_membership= db.Column(db.Integer) #month as unit
-    user_type = db.Column(db.String(25))
+    user_type = db.Column(db.String(25)) #trainer or trainee
     trainee_trainer_id = db.Column(db.String(25), db.ForeignKey('users.user_id'))
     password_hash = db.Column(db.String(30), nullable=False) #storing passwords as byte string
 

@@ -34,7 +34,7 @@ for trainer in trainer_id:
     trainers.append(
         User(
             user_id=trainer,
-            fname=fake.first_name(),
+            fname=trainer,
             lname=fake.last_name(),
             email=fake.email(),
             trainer_img_url=fake.image_url(),
