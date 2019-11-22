@@ -72,7 +72,7 @@
             // create a table row once exercise is selected. 
              const tableBody = $('#menu_table_body');
             dataHtml = dataHtml +`
-            <tr>
+            <tr id="${exercise_id}_tr">
             <td>${exercise_id}</td>
             <td>${exercise_name}</td>
             <td><input type="text" name="${exercise_id}_weight"></td>
