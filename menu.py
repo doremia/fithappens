@@ -1,5 +1,5 @@
 from jinja2 import StrictUndefined
-from flask import Flask, render_template, request, flash, redirect, session
+from flask import Flask, request, jsonify, render_template, request, flash, redirect, session
 from flask_debugtoolbar import DebugToolbarExtension
 from model import db, connect_to_db, User, Exercise, Menu, ExerciseMenu
 
@@ -16,10 +16,36 @@ def show_exercise():
     """Show the list of exercises on menu.html"""
 
     exercises = Exercise.query.all() 
-
     
-    return render_template("menu.html", exercises=exercises)
+    
+    return render_template("exercises_catalog.html", exercises=exercises)
 
+
+# AJAX request for getting exercise 
+@app.route('/search_exercise.json')
+def search_exercise():
+    """Search exercise name for exercise text box"""
+
+    search_name=request.args.get("search_name")
+    print(search_name)
+    
+    exercises_options = Exercise.query.filter(Exercise.exercise.ilike(f"%{search_name}%")).all()
+    print(exercises_options)
+
+    res =[]
+    for exercise in exercises_options:
+        ex = {}
+        ex["id"] = exercise.exercise_id 
+        ex["name"]= exercise.exercise
+        res.append(ex)
+
+    # [{'id': 50,
+    # 'name': 'benchdumbels'},
+    # {'id':54,
+    # 'name': 'bentoverdumbell rows'}]
+
+    return jsonify(res)
+#     print(exercises)
 
 @app.route('/menu', methods=['POST'])
 def create_a_menu():

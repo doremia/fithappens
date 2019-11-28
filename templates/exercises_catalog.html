@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="search-exercises">
+    <p>Search exercises</p>
+    <input type="text" id="search-field">
+    <button>Search</button>
+</div>
+
+<!-- <section class="exercises-section" id="exercises-section">
+    <div id="index-exercise"> Index </div>
+    <div id="list-ex-letter"> list of exercises start with certain letter</div>
+</section> -->
+
+<section class="selected-exercises">
+    <div id="selected-exercises-list">
+        it should show selected exercises 
+    </div>
+</section>
+
+<script>
+    // search exercise name  
+    
+    $('#search-field').on("change", (evt)=> {
+        const typeExercise = $(evt.target);
+        const searchName = typeExercise.val();
+        console.log(searchName);
+        $.get('/search_exercise.json', {'search_name':searchName}, (res)=>{ 
+            console.log(res);
+            // $('#selected-exercises-list').text(res[0]["id"]); 
+            const makeCheckBox = $('#selected-exercises-list');
+            htmlString = "";
+            for (const ex of res) { 
+            console.log(ex["id"], ex["name"]); 
+            htmlString = htmlString + `<input type="checkbox" id=${ex["id"]} value="${ex["id"]}">${ex["name"]}<br>`;}
+        
+            makeCheckBox.html(htmlString);
+        });
+        // upate the dom using jquery to form the HTML and append it
+    });
+
+</script>
+
+
+{% endblock %}
+

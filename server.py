@@ -28,19 +28,19 @@ def index():
 def redirect_register():
     """Redirect user based on action"""
 
-    useraction = request.form['useraction']
+    # useraction = request.form['useraction']
 
-    if useraction == "signin":
+    # if useraction == "signin":
 
-        return redirect("/register")
+    #     return redirect("/register")
 
-    elif useraction == "login":
+    # elif useraction == "login":
 
-        return redirect("/login")
+    #     return redirect("/login")
 
-    elif useraction=="meet_trainers":
+    # elif useraction=="meet_trainers":
 
-        return redirect("/trainer_profiles")
+    #     return redirect("/trainer_profiles")
 
 
 @app.route('/register', methods=['GET'])
@@ -172,10 +172,10 @@ def logout():
 
     return redirect("/")
 
-@app.route('/user/{user.user_id}')
-def show_profile():
+# @app.route('/user/{user.user_id}')
+# def show_profile():
 
-    return render_template
+#     return render_template
 
 @app.route("/trainer_profiles")
 def show_trainers():

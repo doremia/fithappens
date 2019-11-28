@@ -3,8 +3,11 @@
 {% block content %}
 
 <section class="exercise">
-    <label><h2 class='exercise'>Exercises</h2></label>
-
+    <label><h2 class='exercise'>Choose Exercises</h2></label>
+        <div class="search">
+        <input type="text" id="search-ex-name" name="searchExName">
+        <button id="btn-search-exname"> Search </button>
+        </div>
         <form action="/menu" id="exercises">    
             {% for exercise in exercises %}
                 <div><input type='checkbox' name="exercise" value="{{ exercise.exercise }}" id="{{ exercise.exercise_id }}">{{ exercise.exercise }}</div>
@@ -16,14 +19,14 @@
 <!-- ?? make this section in the right block section, with style -->
 <section class="new_menu" >
     <!-- only one form to send the final post request. -->
-    <form action="/menu" id="menu_form" method="POST">
+    <form action="/menu" id="menu-form" method="POST">
         Name for the menu?
         <input type="text" name="input_menu_name" id="input_menu_name">
-        <button id="create_menu_name">Create my new menu name</button>
+        <button id="create-menu-name">Create my new menu name</button>
 
-        <h2 id="show_menu_name"> <!-- name of the menu table --> </h2> 
+        <h2 id="show-menu-name"> <!-- name of the menu table --> </h2> 
 
-        <table id="menu_table">
+        <table id="menu-table">
             <thead>
                 <tr>
                     <th>Exercise ID</th>
@@ -52,33 +55,38 @@
 </section>
 
 <script>  
+    
+
     // Selected exercise can dynamically show on the menu table row.
     let selectedExercises = {};
     let dataHtml='';
     $('input[name=exercise]').on("change", (evt)=> {
         
+        console.log(evt)
         const exercise= $(evt.target);
-        const exercise_id= exercise.attr('id');
-        const exercise_name= exercise.attr('value')
+        const exerciseId= exercise.attr('id');
+        const exerciseName=exercise.attr('value');
+        const checked = $(evt.target.checked);
+        console.log(checked);
          //?? how to keep track of all changed checkboxes and save it in a list of exercise_id 
         
-        if (selectedExercises[exercise_id]) {
-            selectedExercises[exercise_id]= false;
+        if (selectedExercises[exerciseId]) {
+            selectedExercises[exerciseId]= false;
         }
 
         else {
-            selectedExercises[exercise_id]= true;
+            selectedExercises[exerciseId]= true;
 
             // create a table row once exercise is selected. 
              const tableBody = $('#menu_table_body');
             dataHtml = dataHtml +`
-            <tr id="${exercise_id}_tr">
-            <td>${exercise_id}</td>
-            <td>${exercise_name}</td>
-            <td><input type="text" name="${exercise_id}_weight"></td>
-            <td><input type="text" name="${exercise_id}_reps"></td>
-            <td><input type="text" name="${exercise_id}_set"></td>
-            <td><input type="text" name="${exercise_id}_set"></td>
+            <tr id="${exerciseId}_tr">
+            <td>${exerciseId}</td>
+            <td>${exerciseName}</td>
+            <td><input type="text" name="${exerciseId}_weight"></td>
+            <td><input type="text" name="${exerciseId}_reps"></td>
+            <td><input type="text" name="${exerciseId}_set"></td>
+            <td><input type="text" name="${exerciseId}_set"></td>
             </tr>`;  
             tableBody.html(dataHtml);    
         }

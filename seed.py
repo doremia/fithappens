@@ -23,7 +23,7 @@ connect_to_db(app)
 
 ##--API--##
 
-def get_raw_data():
+def get_exercise_names():
     """rget json response from API"""
     #api-endpoint
     URL = "http://wger.de/api/v2/exercise.json/"
@@ -38,16 +38,18 @@ def get_raw_data():
     while True:
         for result in response.json()["results"]:
             print(result["name"])
-            # put into db
+            exercise = Exercise(exercise=result["name"])
+            db.session.add(exercise)
+            db.session.commit()
         URL =  response.json()["next"]
         response = requests.get(url = URL, params = PARAMS )
         if response.json()["next"] == None: break
 
     return 
 
-get_raw_data()
+get_exercise_names()
 
-##########------------ADDING FAKES USERS-----------------------------#########
+##--ADDING FAKES USERS--##
 
     # user_id = db.Column(db.String(25), unique=True, nullable = False)
     # fname = db.Column(db.String(25), nullable = False)
