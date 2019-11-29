@@ -2,5 +2,61 @@
 
 {% block content %}
 
+<form action="/menu" id="menu-form" method="POST">
+ 
+    <div class="txt-name-type">
+            Name for the menu?
+            <input type="text" name="input_menu_name" id="input_menu_name">
+            
+            Menu Type:
+            <input type="text" name="menu_type" id="input_menu_type">
+            <button id="create-menu-name" type="button">Okie!</button>
+            <h2 id="show-menu-name"> show name here </h2>
+            <input type="hidden" id="menu-id" name="menu_id" value="menu_id"> 
+    </div>
 
+    <table id="menu-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Exercise Name</th>
+                <th>Weight</th>
+                <th>Repetition</th>
+                <th>Set</th>
+                <th>Note</th>
+            </tr>
+        </thead>
+        <tbody id="menu_table_body">
+            {% for ex in selected_exes %}
+                <tr>
+                    <td > <input type="hidden" name="ex" value="{{ ex.exercise_id }}">{{ ex.exercise_id }}</td>
+                    <td><input type="hidden" name="{{ ex.exercise }}" value="{{ ex.exercise }}">{{ ex.exercise }} </td>
+                    <td>
+                        <input type="text" name="{{ ex.exercise_id }}_weight">  </td>
+                    <td><input type="text" name="{{ ex.exercise_id }}_reps">  </td>
+                    <td><input type="text" name="{{ ex.exercise_id }}_set">  </td> 
+                    <td><input type="text" name="{{ ex.exercise_id }}_note">  </td> 
+                </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+    <input type="submit" id="menu_form_submission" value="Create New Menu">
+</form>
+
+<script type="text/javascript">
+
+    $('#create-menu-name').on("click", (evt)=>{ 
+        const menuName = $("#input_menu_name").val();
+        const menuType = $("#input_menu_type").val();
+        console.log(menuName,menuType);
+        const showName = $('#show-menu-name');
+        $.post('/create_menu_db', {"menu_name":menuName,"menu_type":menuType}, (res) =>{    
+            console.log("I am back bb");
+            $('#menu-id').val(res);
+            showName.text(menuName);
+            });      
+    });
+
+</script>
 {% endblock %}

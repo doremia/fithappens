@@ -1,11 +1,9 @@
 from jinja2 import StrictUndefined
 
-from flask import Flask, render_template, request, flash, redirect,session
+from flask import Flask, request, jsonify, render_template, request, flash, redirect, session
 from flask_debugtoolbar import DebugToolbarExtension
 
-from trainer_profiles import show_trainers
-
-from model import db, connect_to_db, User 
+from model import db, connect_to_db, User, Exercise, Menu, ExerciseMenu 
 
 import random
 
@@ -204,6 +202,106 @@ def show_trainers():
         trainer_profiles[fname]=[id,random_exps,random_styles, random_cft, random_url]
     
     return render_template("trainer_profiles.html", trainer_profiles=trainer_profiles)
+
+@app.route('/exercises')
+def show_exercise():
+    """Show the list of exercises on menu.html"""
+
+    exercises = Exercise.query.all() 
+    
+    
+    return render_template("exercises_catalog.html", exercises=exercises)
+
+
+# AJAX request for getting exercise 
+@app.route('/search_exercise.json')
+def search_exercise():
+    """Search exercise name for exercise text box"""
+
+    search_name=request.args.get("search_name")
+    print(search_name)
+    
+    exercises_options = Exercise.query.filter(Exercise.exercise.ilike(f"%{search_name}%")).all()
+    print(exercises_options)
+
+    res =[]
+    for exercise in exercises_options:
+        ex = {}
+        ex["id"] = exercise.exercise_id 
+        ex["name"]= exercise.exercise
+        res.append(ex)
+
+    return jsonify(res)
+
+# @app.route('/send_selected_ex', methods=['POST']) #ajax get from exercises_catalog.html button click
+# def show_menu_page():
+#     """Show a list of selected exercises with table"""
+
+#     selected_ex= request.form.get("selectedEx") #selectedEx is a dict
+#     print(selected_ex) #for testing
+
+#     return render_template("show_menu.html", selected_ex=selected_ex)
+
+@app.route('/build_menu', methods=["POST"]) #from exercises_catalog's form submit 
+def get_selected_exes():
+    """Receive and Send selected exercises to show_menu.html """
+    
+    selected_ids = request.form.getlist("checkboxes")
+    print(selected_ids)
+    selected_exes=[]
+
+    for id in selected_ids:
+        selected_ex = Exercise.query.filter_by(exercise_id=id).one()
+        selected_exes.append(selected_ex)
+
+    return render_template("show_menu.html", selected_exes=selected_exes)
+
+@app.route('/create_menu_db', methods=["POST"])
+def save_menu_DB():
+    """Add one menu to database"""
+
+    print("ohoh")
+    name = request.form["menu_name"]
+    creator = request.form["menu_type"]
+    new_menu = Menu(name=name, creator=creator, user_id="jon") 
+    # this has to be updated with session user_id
+    db.session.add(new_menu)
+    db.session.commit()
+    res = new_menu.menu_id
+    print(res)
+    return jsonify(res)
+
+@app.route('/menu', methods=["POST"])
+def exerciseMenu_DB():
+    """Add one ExerciseMenu to database"""
+
+    exes = request.form.getlist('ex')
+    menu_id = request.form.get("menu_id")
+    print(request.form)
+    print(exes)
+    for ex_id in exes:
+        
+        weight=request.form.get("{}_weight".format(ex_id))
+        reps=request.form.get("{}_reps".format(ex_id))
+        total_set=request.form.get("{}_set".format(ex_id))
+
+        new_exercsie_menu=ExerciseMenu(
+            ex_id=ex_id, 
+            menu_id= menu_id, 
+            weight=weight,
+            reps=reps, 
+            total_set= total_set)
+
+        db.session.add(new_exercsie_menu)
+
+    db.session.commit()
+
+    flash("Successfully added a new menu")
+
+    return render_template("exercises_catalog.html")
+
+
+
 
    
 if __name__ == "__main__":

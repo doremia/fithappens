@@ -8,37 +8,75 @@
     <button>Search</button>
 </div>
 
-<!-- <section class="exercises-section" id="exercises-section">
-    <div id="index-exercise"> Index </div>
-    <div id="list-ex-letter"> list of exercises start with certain letter</div>
-</section> -->
+<form action="/build_menu" method="POST">
+    <section class="exercises-section" id="exercises-section">
+        <div id="index-exercise"> This should show search result with checkboxes </div>
+       
+    </section>
 
-<section class="selected-exercises">
-    <div id="selected-exercises-list">
-        it should show selected exercises 
-    </div>
-</section>
+    <section class="selected-exercises">
+        <h3> The selected exercises</h3>
+        <div id="selected-exercises-list">
+            this should be replaced with checked checkboxes exercises
+        </div>
+        <div id="btn-selected-ex-list">
+            this should show a button for next
+        </div>
+    </section>
+
+</form>
 
 <script>
-    // search exercise name  
-    
+    // search exercise name  and return search result   
     $('#search-field').on("change", (evt)=> {
         const typeExercise = $(evt.target);
         const searchName = typeExercise.val();
-        console.log(searchName);
+        console.log(searchName); //remove this after test
         $.get('/search_exercise.json', {'search_name':searchName}, (res)=>{ 
-            console.log(res);
-            // $('#selected-exercises-list').text(res[0]["id"]); 
-            const makeCheckBox = $('#selected-exercises-list');
-            htmlString = "";
-            for (const ex of res) { 
-            console.log(ex["id"], ex["name"]); 
-            htmlString = htmlString + `<input type="checkbox" id=${ex["id"]} value="${ex["id"]}">${ex["name"]}<br>`;}
-        
-            makeCheckBox.html(htmlString);
+            console.log(res); //remove this after test
+            const showCheckBox = $('#exercises-section');
+            htmlCheckbox = "";
+            for (const ex of res) 
+                { 
+                    htmlCheckbox = htmlCheckbox + `<input type="checkbox" class="checkboxes" 
+                    id="${ex["name"]}" name="checkboxes" value="${ex["id"]}">${ex["name"]}<br>`;
+                }
+            showCheckBox.html(htmlCheckbox);
         });
-        // upate the dom using jquery to form the HTML and append it
     });
+
+    // Track checked checkboxes
+    htmlSelected = '';
+    selectedEx = {};
+    $('#exercises-section').on("change", "input.checkboxes", (evt) => { 
+        const checkboxes = $(evt.target);
+        const checkedExId = checkboxes.attr("id");
+        const checkedExName = checkboxes.attr("value");
+        console.log(checkedExName);//remove this after test 
+        if (checkboxes.prop("checked"))
+            { 
+                console.log("yes");
+                htmlSelected = htmlSelected + `<span id="selected-${checkedExId}"> <strong>Exercise Name:</strong> ${checkedExId}<br></span>`;
+                selectedEx[checkedExId] = checkedExName ;
+                console.log(selectedEx);
+            }
+
+        else{ 
+                console.log("no");
+                $(`#selected-${checkedExId}`).remove(); //I think it's htmlSelected still has it.
+            }
+        $('#selected-exercises-list').html(htmlSelected);
+        $('#btn-selected-ex-list').html(`<input type="submit" class="btn-selected-exercises-list" value="Next!">`);
+    });
+    // $('.selected-exercises').on("click", "button.btn-selected-exercises-list", (evt) => {
+    //         console.log("clicked"); // remove this
+    //         console.log(selectedEx); // remove this
+    //         // $.post("/send_selected_ex", {"selectedEx":JSON.stringify(selectedEx)}, (res) =>{                 
+    //         });
+          
+            //redirect to "/menu"
+
+    // });
 
 </script>
 

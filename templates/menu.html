@@ -8,7 +8,7 @@
         <input type="text" id="search-ex-name" name="searchExName">
         <button id="btn-search-exname"> Search </button>
         </div>
-        <form action="/menu" id="exercises">    
+        <form action="/exercises" id="exercises">    
             {% for exercise in exercises %}
                 <div><input type='checkbox' name="exercise" value="{{ exercise.exercise }}" id="{{ exercise.exercise_id }}">{{ exercise.exercise }}</div>
             {% endfor %}      
@@ -19,7 +19,7 @@
 <!-- ?? make this section in the right block section, with style -->
 <section class="new_menu" >
     <!-- only one form to send the final post request. -->
-    <form action="/menu" id="menu-form" method="POST">
+    <form action="/exercises" id="menu-form" method="POST">
         Name for the menu?
         <input type="text" name="input_menu_name" id="input_menu_name">
         <button id="create-menu-name">Create my new menu name</button>
