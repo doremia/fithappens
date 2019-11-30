@@ -15,31 +15,13 @@ app.secret_key = "MuahMuahMuah"
 app.jinja_env.undefined = StrictUndefined
 
 
-###################""CREATE AN USER""#######################
+##--CREATE AN USER--##
 
 @app.route('/')
 def index():
-    """Homepage"""
+    """Show Homepage"""
 
     return render_template("Homepage.html")
-
-@app.route('/' , methods=['POST'])
-def redirect_register():
-    """Redirect user based on action"""
-
-    # useraction = request.form['useraction']
-
-    # if useraction == "signin":
-
-    #     return redirect("/register")
-
-    # elif useraction == "login":
-
-    #     return redirect("/login")
-
-    # elif useraction=="meet_trainers":
-
-    #     return redirect("/trainer_profiles")
 
 
 @app.route('/register', methods=['GET'])
@@ -292,8 +274,10 @@ def exerciseMenu_DB():
 
 @app.route('/calendar')
 def show_calendar():
+    """show calender page"""
 
     return render_template('calendar.html')
+
 
 
    
