@@ -7,6 +7,7 @@ from model import db, connect_to_db, User, Exercise, Menu, ExerciseMenu
 
 import random
 
+
 app = Flask(__name__)
 
 app.secret_key = "MuahMuahMuah"
@@ -160,7 +161,6 @@ def login_process():
     return redirect("/")
 
 
-
 @app.route('/logout')
 def logout():
     """Log out."""
@@ -189,8 +189,7 @@ def show_trainers():
 
     trainer_profiles={}
     #[{"1":[fname, lname, _exps, _stles, cft]},
-    # {"2":[fname, lname, _exps, _stles, cft]},
-    # {"3":[fname, lname, _exps, _stles, cft]},...]
+    # {"2":[fname, lname, _exps, _stles, cft]},]
     for trainer in trainers:
         print(trainer)
         id= trainer.id
@@ -232,15 +231,6 @@ def search_exercise():
         res.append(ex)
 
     return jsonify(res)
-
-# @app.route('/send_selected_ex', methods=['POST']) #ajax get from exercises_catalog.html button click
-# def show_menu_page():
-#     """Show a list of selected exercises with table"""
-
-#     selected_ex= request.form.get("selectedEx") #selectedEx is a dict
-#     print(selected_ex) #for testing
-
-#     return render_template("show_menu.html", selected_ex=selected_ex)
 
 @app.route('/build_menu', methods=["POST"]) #from exercises_catalog's form submit 
 def get_selected_exes():
@@ -300,7 +290,10 @@ def exerciseMenu_DB():
 
     return render_template("exercises_catalog.html")
 
+@app.route('/calendar')
+def show_calendar():
 
+    return render_template('calendar.html')
 
 
    
