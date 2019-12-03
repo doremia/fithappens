@@ -32,15 +32,14 @@
         const typeExercise = $(evt.target);
         const searchName = typeExercise.val();
         console.log(searchName); //remove this after test
-        $.get('/search_exercise.json', {'search_name':searchName}, (res)=>{ 
+        $.get('/search_exercise.json', {'search_name':searchName}, (res) => { 
             console.log(res); //remove this after test
             const showCheckBox = $('#exercises-section');
             htmlCheckbox = "";
-            for (const ex of res) 
-                { 
-                    htmlCheckbox = htmlCheckbox + `<input type="checkbox" class="checkboxes" 
-                    id="${ex["name"]}" name="checkboxes" value="${ex["id"]}">${ex["name"]}<br>`;
-                }
+            for (const ex of res) { 
+                htmlCheckbox = htmlCheckbox + `<input type="checkbox" class="checkboxes" 
+                id="${ex["name"]}" name="checkboxes" value="${ex["id"]}">${ex["name"]}<br>`;
+            }
             showCheckBox.html(htmlCheckbox);
         });
     });
@@ -53,20 +52,21 @@
         const checkedExId = checkboxes.attr("id");
         const checkedExName = checkboxes.attr("value");
         console.log(checkedExName);//remove this after test 
-        if (checkboxes.prop("checked"))
-            { 
-                console.log("yes");
-                htmlSelected = htmlSelected + `<span id="selected-${checkedExId}"> <strong>Exercise Name:</strong> ${checkedExId}<br></span>`;
-                selectedEx[checkedExId] = checkedExName ;
-                console.log(selectedEx);
-            }
+        if (checkboxes.prop("checked")) { 
+            console.log("yes");
+            htmlSelected = htmlSelected + `<span id="selected-${checkedExId}"> <strong>Exercise Name:</strong> ${checkedExId}<br></span>`;
+            selectedEx[checkedExId] = checkedExName ;
+            console.log(selectedEx);
+        }
 
-        else{ 
-                console.log("no");
-                $(`#selected-${checkedExId}`).remove(); //I think it's htmlSelected still has it.
-            }
+        else { 
+            console.log("no");
+            $(`#selected-${checkedExId}`).remove(); //I think it's htmlSelected still has it.
+        }
         $('#selected-exercises-list').html(htmlSelected);
-        $('#btn-selected-ex-list').html(`<input type="submit" class="btn-selected-exercises-list" value="Next!">`);
+        $('#btn-selected-ex-list').html(
+            `<input type="submit" class="btn-selected-exercises-list" value="Next!">`
+        );
     });
     // $('.selected-exercises').on("click", "button.btn-selected-exercises-list", (evt) => {
     //         console.log("clicked"); // remove this

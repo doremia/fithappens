@@ -1,9 +1,9 @@
 from jinja2 import StrictUndefined
 
-from flask import Flask, request, jsonify, render_template, request, flash, redirect, session
+from flask import Flask, request, jsonify, render_template, flash, redirect, session
 from flask_debugtoolbar import DebugToolbarExtension
 
-from model import db, connect_to_db, User, Exercise, Menu, ExerciseMenu 
+from model import db, connect_to_db, User, Exercise, Menu, ExerciseMenu, Schedule, Session 
 
 import random
 
@@ -161,10 +161,12 @@ def logout():
 def show_trainers():
     trainers= User.query.filter_by(user_type="trainer").all()
     print(trainers)
-    expertise=["Boxing", "Powerlifting", "Olympic Weightlifting","Endurance","Brazilian Combat","Thai Boxing", "Brzilian JiuJitsu", "Triathlon", "Hypertrophy"
-                "Core", "Nutrition", "Weight Loss", "Weight Management", "Muscle", "Strength","H.I.I.T","Fat Loss", "Shred", "Athletic", "Speed", "Flexibility"
-                "Muay Thai", "MMA", "Mobility Training", "Lean Muscle Development", "Corrective Exercise", "Stability", " Bodybuilding", "Circuits", "Spartan Race", 
-                "Yoga", "Dance", "Toning", "Body Re-Composition", "Gymnastics", "CrossFit", "KickBoxing", "Martial Arts"]
+    expertise=[
+        "Boxing", "Powerlifting", "Olympic Weightlifting","Endurance","Brazilian Combat","Thai Boxing", "Brzilian JiuJitsu", "Triathlon", "Hypertrophy"
+        "Core", "Nutrition", "Weight Loss", "Weight Management", "Muscle", "Strength","H.I.I.T","Fat Loss", "Shred", "Athletic", "Speed", "Flexibility"
+        "Muay Thai", "MMA", "Mobility Training", "Lean Muscle Development", "Corrective Exercise", "Stability", " Bodybuilding", "Circuits", "Spartan Race", 
+        "Yoga", "Dance", "Toning", "Body Re-Composition", "Gymnastics", "CrossFit", "KickBoxing", "Martial Arts"
+    ]
     styles=["Hell", "No mercy", "Best friends forever", "Gentle", "Like your mom", "Sweat is just your fat crying"]
     certificates=["NCCA", "ACE", "ACSM", "NASM", "ISSA"]
     img_urls= ["/static/hulk.png","/static/bear.png","/static/thor.jpg","/static/queen.jpg"]
@@ -232,7 +234,6 @@ def get_selected_exes():
 def save_menu_DB():
     """Add one menu to database"""
 
-    print("ohoh")
     name = request.form["menu_name"]
     creator = request.form["menu_type"]
     new_menu = Menu(name=name, creator=creator, user_id="jon") 
@@ -240,7 +241,6 @@ def save_menu_DB():
     db.session.add(new_menu)
     db.session.commit()
     res = new_menu.menu_id
-    print(res)
     return jsonify(res)
 
 @app.route('/menu', methods=["POST"])
@@ -278,9 +278,40 @@ def show_calendar():
 
     return render_template('calendar.html')
 
+@app.route('/add_event', methods=["POST"])
+def add_event():
+    """Add an event to session & schedule model"""
 
+    user_id= request.form["userName"]
+    date = request.form["date"]
+    place = request.form["place"]
+    
+    schedule = Schedule(user_id=user_id)
+    db.session.add(schedule)
+    db.session.commit()
 
-   
+    sched_id = schedule.scheduled_id
+
+    res = {"sched_id" : schedule.scheduled_id , "user_id" :user_id, "date" : date, "place" : place}
+    
+    return jsonify(res)
+
+@app.route('/add_session', methods=["POST"])
+def add_session():
+    """Add to session model"""
+
+    sched_id = request.form["schedId"]
+    date = request.form["date"]
+    place = request.form["place"]
+
+    session = Session(
+        sched_id=sched_id,
+        time=date,
+        place=place
+    )
+    res = ["don't really need this"]
+    return jsonify(res)
+ 
 if __name__ == "__main__":
     app.debug = True
     app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
