@@ -303,12 +303,18 @@ def add_session():
     sched_id = request.form["schedId"]
     date = request.form["date"]
     place = request.form["place"]
+    print(date)
+    print(place)
 
     session = Session(
         sched_id=sched_id,
         time=date,
         place=place
     )
+
+    db.session.add(session)
+    db.session.commit()
+
     res = ["don't really need this"]
     return jsonify(res)
  
