@@ -1,24 +1,54 @@
-{% extends 'base.html' %}
-<% block title %>Create a Trainee Account<% endblock %>
-{% block content %}
+
 <form action="/register_trainee" method="POST">
   
-    <label for="user_id">Account ID :</label>
-    <input type="text" name="user_id" id="user_id"><br>
-    <label for="password">Password :</label>
-    <input type="text" name=password id="password"><br>
-    <label for="fname">First Name : </label>
-    <input type="text" name="fname" id="fname"><br>
-    <label for="lname">Last Name : </label>
-    <input type="text" name="lname" id="lname"><br>
-    <label for="email">Email : </label>
-    <input type= "text" name="email" id="email"><br>
-    <label for="img_url">Membership Plan : (month) </label>
-    <input type="text" name="membership_plan" id="membership_plan">
-    <label for="trainer_id">Who is your trainer : (ID) </label>
-    <input type="text" name="trainee_trainer_id" id="trainer_id">
-    <br>
-    <br>
+    <div class="form-group row">
+        <label class="col-sm-3 col-form-label" for="user_id">Account ID:</label>
+        <div class="col-sm-9">
+            <input type="text" name="user_id" id="user_id" class="form-control">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-3 col-form-label" for="user_id">Password:</label>
+        <div class="col-sm-9">
+            <input type="text" name="password" id="password" class="form-control">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-3 col-form-label" for="user_id">First Name:</label>
+        <div class="col-sm-9">
+            <input type="text" name="fname" id="fname" class="form-control">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-3 col-form-label" for="user_id">Last Name:</label>
+        <div class="col-sm-9">
+            <input type="text" name="lname" id="lname" class="form-control">
+        </div>
+    </div>
+   
+    <div class="form-group row">
+        <label class="col-sm-3 col-form-label" for="user_id">Email:</label>
+        <div class="col-sm-9">
+            <input type="text" name="email" id="email" class="form-control">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-3 col-form-label" for="membership_plan">Membership Plan : (month)</label>
+        <div class="col-sm-9">
+            <input type="text" name="membership_plan" id="membership_plan" class="form-control">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-3 col-form-label" for="membership_plan">Who is your trainer : </label>
+        <div class="col-sm-9">
+            <input type="text" name="trainee_trainer_id" id="trainee_trainer_id" class="form-control">
+        </div>
+    </div>
+
     <input type="submit" value="Hiyah! Create my account!">
 </form>
-{% endblock %}

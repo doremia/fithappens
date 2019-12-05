@@ -2,20 +2,40 @@
 
 {% block content %}
 
+<div class="container">
 <form action="/menu" id="menu-form" method="POST">
+<div class="card">
+<div class="card-body">
+
  
     <div class="txt-name-type">
-            Name for the menu?
-            <input type="text" name="input_menu_name" id="input_menu_name">
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label for="input_menu_name">Name for the menu?</label>
+    
+                <input type="text" class="form-control" name="input_menu_name" id="input_menu_name">
+            </div>
             
-            Menu Type:
-            <input type="text" name="menu_type" id="input_menu_type">
-            <button id="create-menu-name" type="button">Okie!</button>
-            <h2 id="show-menu-name"> show name here </h2>
-            <input type="hidden" id="menu-id" name="menu_id" value="menu_id"> 
+            <div class="col-sm-6 form-group">
+                <label for="input_menu_type">
+                    Menu Type:
+                </label>
+
+                <div class="input-group">
+                    <input class="form-control" type="text" name="menu_type" id="input_menu_type">
+                    <div class="input-group-append">
+                        <button id="create-menu-name" type="button">
+                            Okie!
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h2 id="show-menu-name"></h2>
+        <input type="hidden" id="menu-id" name="menu_id" value="menu_id"> 
     </div>
 
-    <table id="menu-table">
+    <table id="menu-table" class="table table-striped table-bordered">
         <thead>
             <tr>
                 <th>ID</th>
@@ -41,8 +61,15 @@
         </tbody>
 
     </table>
-    <input type="submit" id="menu_form_submission" value="Create New Menu">
-</form>
+    
+</div> <!-- end card-body-->
+<div class="card-footer">
+    <input type="submit" class="form-control" id="menu_form_submission" value="Create New Menu">
+</div>
+</div>
+
+</form> 
+</div> <!-- end container -->
 
 <script type="text/javascript">
 

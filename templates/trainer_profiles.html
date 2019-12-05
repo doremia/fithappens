@@ -2,27 +2,32 @@
 {% block content %}
 
  <form action="/trainer_profiles" id="search_bar_form" method="POST">
-
-    <p> What are you looking for? </p>
-    <span> Type any key word! </span> 
-    <span> Ex: Powerlfting, Boxing, Combat... </span>
-    <br>
-    <input type="text" id="keyword">
-    <button type="submit" id="addFilterButton" value="add_filter">Add Filter</button>
-    <button type="submit" id="searchBarButton" value="Search"> Search</button>
+    <div class="trainer-search">
+        <p> What are you looking for? </p>
+        <span> Type any key word! </span> 
+        <span> Ex: Powerlfting, Boxing, Combat... </span>
+        <br>
+        <input type="text" id="keyword">
+        <button class="btn btn-trainer" type="submit" id="addFilterButton" value="add_filter">Add Filter</button>
+        <button class="btn btn-trainer" type="submit" id="searchBarButton" value="Search"> Search</button>
+    </div>
 </form> 
 
 
 {% for key, value in trainer_profiles.items() %}
-    <p>
-    <img src="{{ value[4] }}" height="100" width="100" align="left">
-    <div class="tr_name">{{ key }} </div>
-    <div class="tr_values">ID :  {{ value[0] }}</div>
-    <div class="tr_values">Expertise : {% for item in value[1] %}
-    {{ item }}, {% endfor %}</div>
-    <div class="tr_values ">Training Style : {{ value[2] }}</div>
-    <div class="tr_values ">Certificate : {% for certificate in value[3] %} {{ certificate }}, {% endfor%} </div>
-    </p>
+    <div class="trainer-box col-5">
+        <div class="trainer-pic-box">
+            <img class="trainer-pic" src="{{ value[4] }}" align="left">
+        </div>
+        <div class="trainer-description">
+            <div class="tr_name">{{ value[0] }} </div>
+            <div class="tr_values">ID :  {{ key }}</div>
+            <div class="tr_values">Expertise : {% for item in value[1] %}
+            {{ item }}, {% endfor %}</div>
+            <div class="tr_values ">Training Style : {{ value[2] }}</div>
+            <div class="tr_values ">Certificate : {% for certificate in value[3] %} {{ certificate }}, {% endfor%} </div>
+        </div>
+    </div>
 {% endfor %}
 
 {% endblock %}

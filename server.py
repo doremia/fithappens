@@ -35,7 +35,7 @@ def show_register_type():
 def register_type():
     """Process the option to sign up as a trainer or a trainee"""
     
-    user_type = request.form['usertype']
+    user_type = request.form["usertype"]
 
     if user_type == "trainer":
 
@@ -169,20 +169,41 @@ def show_trainers():
     ]
     styles=["Hell", "No mercy", "Best friends forever", "Gentle", "Like your mom", "Sweat is just your fat crying"]
     certificates=["NCCA", "ACE", "ACSM", "NASM", "ISSA"]
-    img_urls= ["/static/hulk.png","/static/bear.png","/static/thor.jpg","/static/queen.jpg"]
+    img_urls= ["/static/jon.jpg","/static/tina.jpg","/static/bear.png","/static/masha.jpg","/static/queen.jpg"]
+    sample_url=["/static/dog1.jpg","/static/dog2.jpg"]
 
     trainer_profiles={}
     #[{"1":[fname, lname, _exps, _stles, cft]},
     # {"2":[fname, lname, _exps, _stles, cft]},]
     for trainer in trainers:
-        print(trainer)
-        id= trainer.id
+        print(trainer.user_id)
+        id= trainer.id  
+        user_id = trainer.user_id
+        if trainer.user_id == "Tina":
+            trainer.trainer_img_url = img_urls[1]
+            random_url = trainer.trainer_img_url
+        if trainer.user_id == "Jon":
+            trainer.trainer_img_url = img_urls[0]
+            random_url = trainer.trainer_img_url
+        if trainer.user_id =="Matt":
+            trainer.trainer_img_url = img_urls[2]
+            random_url = trainer.trainer_img_url
+        if trainer.user_id =="Masha":
+            trainer.trainer_img_url = img_urls[3]
+            random_url = trainer.trainer_img_url
+        if trainer.user_id =="Rich":
+            trainer.trainer_img_url = img_urls[4]
+            random_url = trainer.trainer_img_url
+
+        # else:
+        #     random_url = random.choice(sample_url)
+
         fname= trainer.fname
+        print(fname)
         random_exps= random.choices(expertise, k=4)
         random_styles= random.choice(styles)
         random_cft= random.choices(certificates, k=3)
-        random_url= random.choice(img_urls)
-        trainer_profiles[fname]=[id,random_exps,random_styles, random_cft, random_url]
+        trainer_profiles[id]=[user_id,random_exps,random_styles, random_cft, random_url]
     
     return render_template("trainer_profiles.html", trainer_profiles=trainer_profiles)
 
@@ -236,7 +257,7 @@ def save_menu_DB():
 
     name = request.form["menu_name"]
     creator = request.form["menu_type"]
-    new_menu = Menu(name=name, creator=creator, user_id="jon") 
+    new_menu = Menu(name=name, creator=creator, user_id="Tina") 
     # this has to be updated with session user_id
     db.session.add(new_menu)
     db.session.commit()

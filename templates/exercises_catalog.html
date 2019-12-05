@@ -2,46 +2,58 @@
 
 {% block content %}
 
+<div class="container">
 <div class="search-exercises">
-    <p>Search exercises</p>
-    <input type="text" id="search-field">
-    <button>Search</button>
+    <h1 class="my-4">Search exercises</h1>
+    <input id="search-field" class="form-control mr-sm-2" type="search" placeholder="Exercise name. ex: squat, dumbbell" aria-label="Search">
 </div>
 
 <form action="/build_menu" method="POST">
     <section class="exercises-section" id="exercises-section">
-        <div id="index-exercise"> This should show search result with checkboxes </div>
+        <div id="index-exercise">  </div>
        
     </section>
 
     <section class="selected-exercises">
-        <h3> The selected exercises</h3>
         <div id="selected-exercises-list">
-            this should be replaced with checked checkboxes exercises
+            
         </div>
         <div id="btn-selected-ex-list">
-            this should show a button for next
+            
         </div>
     </section>
 
 </form>
+</div>
 
 <script>
     // search exercise name  and return search result   
-    $('#search-field').on("change", (evt)=> {
+    $('#search-field').on("change keyup", (evt)=> {
         const typeExercise = $(evt.target);
         const searchName = typeExercise.val();
-        console.log(searchName); //remove this after test
-        $.get('/search_exercise.json', {'search_name':searchName}, (res) => { 
-            console.log(res); //remove this after test
-            const showCheckBox = $('#exercises-section');
-            htmlCheckbox = "";
-            for (const ex of res) { 
-                htmlCheckbox = htmlCheckbox + `<input type="checkbox" class="checkboxes" 
-                id="${ex["name"]}" name="checkboxes" value="${ex["id"]}">${ex["name"]}<br>`;
-            }
-            showCheckBox.html(htmlCheckbox);
-        });
+
+        if (searchName == "") {
+            $('#exercises-section').html("");
+        } else {
+            $.get('/search_exercise.json', {'search_name':searchName}, (res) => { 
+                console.log(res); //remove this after test
+                const showCheckBox = $('#exercises-section');
+                htmlCheckbox = "";
+                for (const ex of res) { 
+                    htmlCheckbox = htmlCheckbox + `
+                    <div class="form-check mb-2">
+                        <input type="checkbox" class="checkboxes form-check-input" 
+                    id="${ex["name"]}" name="checkboxes" value="${ex["id"]}">
+                        <label class="form-check-label" for="${ex["name"]}">
+                            ${ex["name"]}
+                        </label>
+                    </div>`;
+                }
+                showCheckBox.html(
+                    "<div class='card p-3'>" + htmlCheckbox + "</div>"
+                );
+            });
+        }
     });
 
     // Track checked checkboxes

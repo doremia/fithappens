@@ -1,22 +1,45 @@
-{% extends 'base.html' %}
-<% block title %>Create a Trainer Account<% endblock %>
-{% block content %}
 <form action="/register_trainer" method="POST">
 
-    <label for="user_id">Account ID :</label>
-    <input type="text" name="user_id" id="user_id"><br>
-    <label for="password">Password :</label>
-    <input type="text" name=password id="password"><br>
-    <label for="fname">First Name : </label>
-    <input type="text" name="fname" id="fname"><br> 
-    <label for="lname">Last Name : </label>
-    <input type="text" name="lname" id="lname"><br>
-    <label for="email">Email : </label>
-    <input type= "text" name="email" id="email"><br>
-    <label for="img_url">Upload your photo : </label>
-    <input type="file" name="img_url" id="img_url" accept="image/png, image/jpeg"><br>
-    <br>
-    <br>
-    <input type="submit" value="Hiyah! Create my account!">
+    <div class="form-group row">
+        <label class="col-sm-3 col-form-label" for="user_id">Account ID:</label>
+        <div class="col-sm-9">
+            <input type="text" name="user_id" id="user_id" class="form-control">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-3 col-form-label" for="user_id">Password:</label>
+        <div class="col-sm-9">
+            <input type="text" name="password" id="password" class="form-control">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-3 col-form-label" for="user_id">First Name:</label>
+        <div class="col-sm-9">
+            <input type="text" name="fname" id="fname" class="form-control">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-3 col-form-label" for="user_id">Last Name:</label>
+        <div class="col-sm-9">
+            <input type="text" name="lname" id="lname" class="form-control">
+        </div>
+    </div>
+   
+    <div class="form-group row">
+        <label class="col-sm-3 col-form-label" for="user_id">Email:</label>
+        <div class="col-sm-9">
+            <input type="text" name="email" id="email" class="form-control">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-3 col-form-label" for="user_id">Upload your photo:</label>
+        <div class="col-sm-9">
+            <input type="file" name="img-url" id="img_url" class="form-control" accept="image/png, image/jpeg">
+        </div>
+    </div>
+   
 </form>
-{% endblock %}

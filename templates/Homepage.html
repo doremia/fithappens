@@ -1,16 +1,20 @@
 {% extends 'base.html' %}
  {% block content %}
+<body class="homebody">
+<div class="row1">
+</div>
+<div class="row">
+    <div class="col-7">
+        <video autoplay muted loop playsinline>
+            <source src="/static/workout_vid.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="col-2">
+    </div>
+    <div class="col-2">
+        <button class="btn btn-register"> Register </button>
+    </div>
+</div>
 
-<!-- <form action="/" method="POST">
-    <button type="submit" name="useraction" value="signin">Sign Up</button>
-</form>
-<br>
-<form action="/" method="POST">
-    <button type="submit" name="useraction" value="login">Log In</button>
-</form>
-
-<form action="/" method="POST">
-    <button type="submit" name="useraction" value="meet_trainers">Meet Trainers</button> -->
-<img src="/static/corgi.jpg">
-
+</body>
 {% endblock %}

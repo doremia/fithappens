@@ -1,11 +1,62 @@
 {% extends 'base.html' %}
 <% block title %>~~~HELLO~~~<% endblock %>
 {% block content %}
-<form action="/register" method="POST">
-    <label for="usertype">Become a Trainer or a Trainee?</label>
-    Trainer <input type="radio" name="usertype" value="trainer"> 
-    Trainee <input type="radio" name="usertype" value="trainee"> 
 
-    <input type="submit" value="Let's go get you an account!">
-</form>
+<div class="text-center" style="margin-top: 10em">
+    <button class="btn btn-light btn-lg btn-register" data-toggle="modal" data-target="#register-as-trainer-modal">
+        Register as trainer
+    </button>
+
+    <button class="btn btn-light btn-lg btn-register" data-toggle="modal" data-target="#register-as-trainee-modal">
+        Register as trainee
+    </button>
+</div>
+
+
+<!-- Trainer Modal -->
+<div class="modal" id="register-as-trainer-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Register as a Trainer</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        {% include 'trainer_form.html' %}
+
+      </div>
+      <div class="modal-footer">
+        <input type="submit" class="btn btn-primary" value="Hiyah! Create my account!">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Trainee Modal -->
+<div class="modal" id="register-as-trainee-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Register as a Trainer</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        {% include 'trainee_form.html' %}
+
+      </div>
+      <div class="modal-footer">
+        <input type="submit" class="btn btn-primary" value="Hiyah! Create my account!">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock %}

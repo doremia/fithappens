@@ -51,9 +51,9 @@ get_exercise_names()
 
 #--ADDING FAKES USERS--##
 
-trainer_id= ["rich","jon","Tina","Patrick","Matt"]
+trainer_ids= ["Rich","Jon","Tina","Masha","Matt"]
 trainers=[]
-for trainer in trainer_id:
+for trainer in trainer_ids:
     trainers.append(
         User(
             user_id=trainer,
@@ -66,8 +66,23 @@ for trainer in trainer_id:
         )
     )
 
+for i in range(1,10):
+    trainers.append(
+        User(
+            user_id=fake.word(),
+            fname=trainer,
+            lname=fake.last_name(),
+            email=fake.email(),
+            trainer_img_url=fake.image_url(),
+            user_type="trainer",
+            password_hash=fake.name(),
+        )
+    )
+
+
 trainees=[]
-for trainer_name in trainer_id:
+for fake_trainer in trainers:
+    trainer_id = fake_trainer.user_id
     trainees.append(
         User(
             user_id=fake.name(),
@@ -76,7 +91,7 @@ for trainer_name in trainer_id:
             email=fake.email(),
             trainee_membership=random.randint(1,20),
             user_type="trainee",
-            trainee_trainer_id=trainer_name,
+            trainee_trainer_id=trainer_id,
             password_hash=fake.name()
         )
     )
