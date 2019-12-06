@@ -129,11 +129,11 @@ def login_process():
         flash("I don't know you.")
         return redirect("/login")
 
-    if user.password != password:
+    if user.password_hash != password:
         flash("Hey! you fed me a wrong password")
         return redirect("/login")
 
-    if session['user_id']:
+    if "user_id" in session:
         flash("Already logged in")
         return redirect('/')
 
@@ -182,21 +182,21 @@ def show_trainers():
         if trainer.user_id == "Tina":
             trainer.trainer_img_url = img_urls[1]
             random_url = trainer.trainer_img_url
-        if trainer.user_id == "Jon":
+        elif trainer.user_id == "Jon":
             trainer.trainer_img_url = img_urls[0]
             random_url = trainer.trainer_img_url
-        if trainer.user_id =="Matt":
+        elif trainer.user_id =="Matt":
             trainer.trainer_img_url = img_urls[2]
             random_url = trainer.trainer_img_url
-        if trainer.user_id =="Masha":
+        elif trainer.user_id =="Masha":
             trainer.trainer_img_url = img_urls[3]
             random_url = trainer.trainer_img_url
-        if trainer.user_id =="Rich":
+        elif trainer.user_id =="Rich":
             trainer.trainer_img_url = img_urls[4]
             random_url = trainer.trainer_img_url
 
-        # else:
-        #     random_url = random.choice(sample_url)
+        else:
+            random_url = random.choice(sample_url)
 
         fname= trainer.fname
         print(fname)
@@ -338,6 +338,25 @@ def add_session():
 
     res = ["don't really need this"]
     return jsonify(res)
+
+# @app.route('/show_sessions')
+# def show_sessions():
+#     """Send sessions data to the page"""
+#     sessions = Session.query.all()
+
+#     res=[]
+    
+#     for session in sessions :
+#         event = {}
+#         schedule = Schedule.query.filter_by(scheduled_id=session.sched_id).one()
+#         user_id = schedule.user_id
+#         date = session.time
+#         place = session.place
+#         event[user_id] = date, place
+#         res.append(event)
+
+#         print(res)
+#     return jsonify(res)
  
 if __name__ == "__main__":
     app.debug = True

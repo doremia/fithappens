@@ -2,13 +2,13 @@
 
 {% block content %}
 
-    <form action="/login" method="POST">
+    <form class="form-group login-form" action="/login" method="POST">
 
-        <h2> Happy Workout Happy Life </h2>
+        <h2 class="header-login"> Happy Workout Happy Life </h2>
 
         <div class="form-group">
             <label for="id-field" class="sr-only">Account ID:</label>
-            <input type="text"
+            <input class="form-control col-2 mx-auto" type="text"
                    name="user_id"
                    placeholder="Account ID"
                    required>
@@ -16,13 +16,14 @@
 
         <div class="form-group">
             <label for="password-field" class="sr-only">Password</label>
-            <input type="password"
+            <input class="form-control col-2 mx-auto"
+                   type="password"
                    name="password"
                    placeholder="Password"
                    required>
         </div>
 
-        <button type="submit">Sign In</button>
+        <button class="btn-light" type="submit">Sign In</button>
 
     </form>
 

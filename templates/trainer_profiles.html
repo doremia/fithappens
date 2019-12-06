@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<div class="container">
  <form action="/trainer_profiles" id="search_bar_form" method="POST">
     <div class="trainer-search">
         <p> What are you looking for? </p>
@@ -13,21 +14,24 @@
     </div>
 </form> 
 
-
+ <div class="row">
 {% for key, value in trainer_profiles.items() %}
-    <div class="trainer-box col-5">
-        <div class="trainer-pic-box">
-            <img class="trainer-pic" src="{{ value[4] }}" align="left">
-        </div>
-        <div class="trainer-description">
-            <div class="tr_name">{{ value[0] }} </div>
-            <div class="tr_values">ID :  {{ key }}</div>
-            <div class="tr_values">Expertise : {% for item in value[1] %}
-            {{ item }}, {% endfor %}</div>
-            <div class="tr_values ">Training Style : {{ value[2] }}</div>
-            <div class="tr_values ">Certificate : {% for certificate in value[3] %} {{ certificate }}, {% endfor%} </div>
-        </div>
+   
+    <div class="trainer-pic-box mb-4 col-3">
+        <img class="trainer-pic" src="{{ value[4] }}">
     </div>
-{% endfor %}
 
+    <div class="tr-description col-3">
+        <div class="tr_name">{{ value[0] }} </div>
+        <div class="tr_values">ID :  {{ key }}</div>
+        <div class="tr_values">Expertise : {% for item in value[1] %}
+        {{ item }}, {% endfor %}</div>
+        <div class="tr_values ">Training Style : {{ value[2] }}</div>
+        <div class="tr_values ">Certificate : {% for certificate in value[3] %} {{ certificate }}, {% endfor%} </div>
+    </div>
+
+
+{% endfor %}
+</div>
+</div> <!-- end container -->
 {% endblock %}

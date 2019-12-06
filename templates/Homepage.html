@@ -1,18 +1,21 @@
 {% extends 'base.html' %}
  {% block content %}
 <body class="homebody">
-<div class="row1">
-</div>
+
+<video autoplay muted loop playsinline>
+    <source src="/static/workout_vid.mp4" type="video/mp4">
+</video>
+
+<a class="btn-register2" href="/register" > Register </a>
+
 <div class="row">
     <div class="col-7">
-        <video autoplay muted loop playsinline>
-            <source src="/static/workout_vid.mp4" type="video/mp4">
-        </video>
+        
     </div>
     <div class="col-2">
     </div>
     <div class="col-2">
-        <button class="btn btn-register"> Register </button>
+        
     </div>
 </div>
 
