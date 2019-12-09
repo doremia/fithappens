@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+  {% block head %}
+    <link href='/static/fullcalendar/packages/core/main.css' rel='stylesheet' />
+    <link href='/static/fullcalendar/packages/daygrid/main.css' rel='stylesheet' />
+    <link href='/static/fullcalendar/packages/timegrid/main.css' rel='stylesheet' />
+
+    <script src='/static/fullcalendar/packages/core/main.js'></script>
+    <script src='/static/fullcalendar/packages/daygrid/main.js'></script>
+    <script src='/static/fullcalendar/packages/timegrid/main.js'></script>
+    <script src='/static/fullcalendar/packages/interaction/main.js'></script>
+    <script src='/static/fullcalendar/packages/moment/main.js'></script>
+    <script>
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+
+
+            const calendarEl = document.getElementById('calendar');
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                plugins: [ 'dayGrid','timeGrid','interaction','moment' ],
+                selectable:false,
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                aspectRatio: 3,  
+
+
+                    events :[
+                        {
+                            title: "Tina",
+                            date: '2019-12-01'
+                        },
+                        {
+                            title:"Jon",
+                            date:'2019-12-09'
+                        },
+                         {
+                            title: "Matt",
+                            date: '2019-12-17'
+                        },
+                        {
+                            title:"Tiffany",
+                            date:'2019-12-28'
+                        }
+
+                    ],
+    
+
+                dateClick: function(info) {
+                    info.dayEl.style.backgroundColor = '#efc3db';
+                    const userName = prompt("Enter trainer's name");
+                    let place= prompt("Place");
+                    let date = info.dateStr;
+                    const eventDetails = {
+                        'userName' : userName, 
+                        'date' : date,
+                        'place' : place
+                    };                
+                    $.post('/add_event', eventDetails,(res) => { 
+                            alert( `Hooray! Have a good workout with ${res.user_id} soon!`);
+                            schedId = res.sched_id;
+                            date = res.date + ' 04:05:06';
+                            place = res.place;
+                            $.post('/add_session', {"schedId" : schedId, "date" : date, "place" : place }, (res) => { 
+                            });
+                    });
+                    calendar.addEvent({
+                            title : userName,
+                            date : date,
+                            place :place,
+                            allDay : true,
+                            backgroundColor : '#fff'
+                    });
+                }
+                 
+            }); 
+        calendar.render();        
+        });
+
+    </script>
+
+{% endblock %}
+
+
+{% block content %}
+    <div id="calendar"></div>
+    <div class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <p>this is the text inside the modal</p>
+        </div>
+    </div>
+{% endblock %}
+
+
+  
+
+
+
+
+

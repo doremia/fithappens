@@ -1,0 +1,173 @@
+body {
+          padding-top: 75px;
+          padding-bottom: 20px;
+          background-color: #d8e4ee;
+          background-image: url("./bg.jpg");
+
+}
+/*Homepage*/
+body.homebody {
+          background-image: url("./bg.jpg");
+          background-repeat: no-repeat;
+          background-size:100% 100%;
+}
+
+
+
+.row1 {
+  height: 350px;
+}
+video {
+  width: 100%    !important;
+  height: auto   !important;
+}
+.login-form {
+  text-align: center;
+}
+
+h2.header-login {
+  margin-top: 1.5rem;
+  margin-bottom:2.0rem;
+  color: #f3eeee;
+  font-weight: bold ;
+  font-size: 2.5rem;
+  font-family: 'Noto Sans', sans-serif; 
+}
+
+/*Register*/
+form.register-type {
+  text-align: center;
+  font-family: 'Noto Sans', sans-serif;
+}
+
+a.btn-register2{
+  color:white;
+  position: absolute;
+  top: 370px;
+  left: 39%;
+  padding: 1.5em 3em;
+  border: 2px solid white;
+  font-size: 1.75rem;
+}
+
+.btn-register {
+    color: #f3eeee;
+    background-color: transparent;
+    border-color: #646c72;
+    margin-right: 2em;
+    font-size: 1.5rem;
+    font-family: 'Noto Sans', sans-serif;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.btn-light {
+  color: #ffffff;
+  background-color: transparent;
+  border-color: #646c72;
+  font-size: 1.5rem;
+  font-family: 'Noto Sans', sans-serif;
+  padding: 0.5em;
+}
+
+/*Navbar*/
+.bg-dark {
+    background-color: transparent !important;
+}
+.navbar-brand{
+  color: #f3eeee;
+  font-weight: bold ;
+  font-size: 1.75rem;
+  font-family: 'Noto Sans', sans-serif;
+}
+.fixed-top.scrolled {
+    background-color: #eee9e9 !important;
+
+    transition: background-color 200ms linear;
+}
+.nav-link.scrolled {
+    color:#000000 !important;
+    transition: color 200ms linear;
+}
+.navbar-brand.scrolled {
+    color:#000000 !important;
+    transition: color 200ms linear;
+}
+.nav-btn.scrolled {
+  color:#000000 !important;
+  transition: color 200ms linear;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: #f3eeee;
+    font-size: 1.2rem;
+    font-family: 'Noto Sans', sans-serif;
+    padding-right: 1.75rem;
+    padding-left: 1.5rem;
+}
+
+
+/*trainer profile */
+.trainer-search {
+    text-align: center;
+    font-family: 'Noto Sans', sans-serif;
+    padding-bottom: 20px;
+    padding-top: 30px;
+    font-size: 1.25rem;
+    color: #6c5c5c;
+}
+.trainer-pic{
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+}
+.tr-description{
+  color: #6c5c5c;
+  margin-bottom:20px; 
+  font-family: 'Noto Sans', sans-serif;
+}
+.tr_name{
+  font-size: 2rem;
+  font-weight:bold;
+}
+
+
+/*exercise catalog*/
+.search-exercises {
+  text-align: center;
+  font-family: 'Noto Sans', sans-serif;
+}
+
+h1.search-bar-title {
+  color:#d4b5b5;
+  font-family: 'Noto Sans', sans-serif;
+}
+
+h3.selected-exercises{
+  text-align: center;
+  font-family: 'Noto Sans', sans-serif;
+}
+
+section.exercises-section{
+  font-size: 1.2rem;
+}
+
+section.selected-exercises{
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 1.5rem;
+}
+span.checked-ex {
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 1.5rem;
+  color: #f3eeee;
+}
+
+/*footer*/
+.fixed-bottom {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1030;
+    text-align: center;
+}
