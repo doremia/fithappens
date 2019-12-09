@@ -42,7 +42,7 @@
                     htmlCheckbox = htmlCheckbox + `
                     <div class="form-check mb-2">
                         <input type="checkbox" class="checkboxes form-check-input my-1" 
-                    id="${ex["name"]}" name="checkboxes" value="${ex["id"]}">
+                    id="${ex["id"]}" name="checkboxes" value="${ex["name"]}">
                         <label class="form-check-label" for="${ex["name"]}">
                             ${ex["name"]}
                         </label>
@@ -65,7 +65,7 @@
         console.log(checkedExName);//remove this after test 
         if (checkboxes.prop("checked")) { 
             console.log("yes");
-            htmlSelected = htmlSelected + `<span class="checked-ex my-1" id="selected-${checkedExId}"> <strong>Exercise :</strong> ${checkedExId}<br></span>`;
+            htmlSelected = htmlSelected + `<span class="checked-ex my-1" id="selected-${checkedExId}">  <input type="hidden" id="${checkedExId}" name="checkedExId" value="${checkedExId}"><strong>Exercise :</strong> ${checkedExName}<br></span>`;
             selectedEx[checkedExId] = checkedExName ;
             console.log(selectedEx);
         }

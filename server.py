@@ -169,7 +169,7 @@ def show_trainers():
     ]
     styles=["Hell", "No mercy", "Best friends forever", "Gentle", "Like your mom", "Sweat is just your fat crying"]
     certificates=["NCCA", "ACE", "ACSM", "NASM", "ISSA"]
-    img_urls= ["/static/jon.jpg","/static/tina.jpg","/static/bear.png","/static/masha.jpg","/static/queen.jpg"]
+    img_urls= ["/static/jon.jpg","/static/tina.jpg","/static/ryan2.jpg","/static/masha.jpg","/static/ryan.jpg"]
     sample_url=["/static/dog1.jpg","/static/dog2.jpg"]
 
     trainer_profiles={}
@@ -241,9 +241,10 @@ def search_exercise():
 def get_selected_exes():
     """Receive and Send selected exercises to show_menu.html """
     
-    selected_ids = request.form.getlist("checkboxes")
+    selected_ids = request.form.getlist("checkedExId")
     print(selected_ids)
     selected_exes=[]
+
 
     for id in selected_ids:
         selected_ex = Exercise.query.filter_by(exercise_id=id).one()
