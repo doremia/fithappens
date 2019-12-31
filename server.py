@@ -3,19 +3,21 @@ from jinja2 import StrictUndefined
 from flask import Flask, request, jsonify, render_template, flash, redirect, session
 from flask_debugtoolbar import DebugToolbarExtension
 
+import os
+
 from model import db, connect_to_db, User, Exercise, Menu, ExerciseMenu, Schedule, Session 
 
 import random
 
-
+## FLASK APP SET-UP ##
 app = Flask(__name__)
 
-app.secret_key = "MuahMuahMuah"
+app.secret_key = os.environ['FLASK_SECRET_KEY']
 
 app.jinja_env.undefined = StrictUndefined
 
 
-##--CREATE AN USER--##
+## ROUTES ##
 
 @app.route('/')
 def index():
@@ -361,6 +363,8 @@ def add_session():
  
 if __name__ == "__main__":
     app.debug = True
+    # make sure templates, etc. are not cached in debug mode
+    app.jinja_env.auto_reload = app.debug
     app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
     connect_to_db(app)
     DebugToolbarExtension(app)
