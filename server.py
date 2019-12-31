@@ -362,10 +362,10 @@ def add_session():
 #     return jsonify(res)
  
 if __name__ == "__main__":
-    app.debug = True
+    app.debug = False
     # make sure templates, etc. are not cached in debug mode
     app.jinja_env.auto_reload = app.debug
     app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
     connect_to_db(app)
     DebugToolbarExtension(app)
-    app.run(host="0.0.0.0")
+    app.run()
